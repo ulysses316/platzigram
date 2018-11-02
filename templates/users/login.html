@@ -1,0 +1,22 @@
+{% extends "users/base.html"%}
+{%block head_content%}
+
+  <title>platzigram Sign in</title>
+
+{%endblock%}
+
+{% block container %}
+
+{% if error %}
+  <p style="color:red; text-align:center">{{ error }}</p>
+{% endif %}
+
+<form class="" action="{% url "login" %}" method="post">
+  <!-- # Django CSRF -->
+  <form method="post">{% csrf_token %}
+    <!-- FORM FOR LOGIN -->
+  <input class="col-md-12" style="margin-top:15px;" type="text" name="username" placeholder="Username">
+  <input class="col-md-12" style="margin-top:15px;" type="password" name="password" placeholder="Password">
+  <button class="col-md-12" style="margin-top:15px;" type="submit" name="button">Enviar</button>
+</form>
+{%endblock%}

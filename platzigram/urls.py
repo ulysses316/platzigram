@@ -17,13 +17,16 @@ from django.contrib import admin
 from django.urls import path
 from platzigram import views as local_views
 from posts import views as posts_views
+from users import views as users_views
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("hello-world/", local_views.hello),
-    path("hola",local_views.hola),
-    path("",local_views.index),
-    path("sorted",local_views.getPrueba1),
-    path("<str:name>/<int:age>", local_views.say_hi),
+    path('admin/', admin.site.urls, name="admin"),
+    path("hello-world/", local_views.hello, name="hello"),
+    path("hola",local_views.hola, name="hola"),
+    path("",local_views.index, name="index"),
+    path("sorted",local_views.getPrueba1, name="sorted"),
+    path("<str:name>/<int:age>", local_views.say_hi, name="get"),
     #Posts
-    path("posts", posts_views.lists_posts),
+    path("posts", posts_views.lists_posts, name="posts"),
+    #users
+    path("login", users_views.login_user, name="login")
 ]

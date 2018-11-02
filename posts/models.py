@@ -1,17 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import User
+from users.models import Profile
 
 # Create your models here.
 
-class User(models.Model):
-    email = models.EmailField(unique = True)
-    password = models.CharField(max_length = 16)
-    is_admin = models.BooleanField(default=False)
+class Post(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
 
-    first_name = models.CharField(max_length = 20)
-    last_name = models.CharField(max_length = 20)
-
-    bio = models.TextField(blank=True)
-    birthday = models.DateField(blank = True, null = True)
+    title = models.CharField(max_length = 255)
+    photo = models.ImageField(upload_to  = "posts/photos")
 
     created = models.DateTimeField(auto_now_add = True)
-    modified = models.DateTimeField(auto_now=True)
+    modified = models.DateTimeField(auto_now = True)
+
+    def __str__(self):
+        """returned a user and the title of post"""
+        return "{} by @{}".format(self.title, self.user.username)
